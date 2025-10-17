@@ -2,17 +2,86 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>NOVA Eye Detection</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NoVA-SCAN</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
-  <div class="container">
-    <h1>NOVA Eye Detection</h1>
-    <form action="/" method="post" enctype="multipart/form-data">
-      <input type="file" name="image" accept="image/*" required>
-      <button type="submit">Run Detection</button>
-    </form>
-    <p class="note">Upload an image to detect and visualize eyes.</p>
+<body class="bg-light-blue">
+  <nav class="navbar navbar-light bg-white shadow-sm">
+    <div class="container">
+      <span class="navbar-brand fw-bold text-primary">NoVA-SCAN</span>
+    </div>
+  </nav>
+
+  <div class="container text-center mt-5">
+    <h2 class="fw-bold text-dark">What is NoVA-SCAN</h2>
+    <p class="text-muted mb-5">
+      NoVA-Scan is an AI-powered web app that automatically detects key areas from your image —
+      the <strong>Eyes</strong>, <strong>Palm</strong>, and <strong>Nail Beds</strong> —
+      using advanced object detection technology (YOLO).
+    </p>
+
+    <div class="row justify-content-center g-4">
+      <div class="col-md-3">
+        <div class="card option-card h-100 shadow-sm" onclick="window.location='/camera/eye'">
+          <img src="{{ url_for('static', filename='images/eye.jpg') }}" class="card-img-top rounded-top" alt="Eye">
+          <div class="card-body">
+            <h5 class="text-primary fw-bold">Eyes</h5>
+            <p class="text-muted">Let NoVA-Scan detect your eye region automatically for a clear and accurate image.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="card option-card h-100 shadow-sm" onclick="window.location='/camera/palm'">
+          <img src="{{ url_for('static', filename='images/palm.jpg') }}" class="card-img-top rounded-top" alt="Palm">
+          <div class="card-body">
+            <h5 class="text-primary fw-bold">Palm</h5>
+            <p class="text-muted">Your palm area is identified instantly, helping AI prepare it for detailed analysis.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="card option-card h-100 shadow-sm" onclick="window.location='/camera/nail'">
+          <img src="{{ url_for('static', filename='images/nail.jpg') }}" class="card-img-top rounded-top" alt="Nail">
+          <div class="card-body">
+            <h5 class="text-primary fw-bold">Nail Beds</h5>
+            <p class="text-muted">NoVA-Scan pinpoints your nail area for focused, accurate detection.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section class="mt-5">
+      <h4 class="fw-bold text-dark mb-4">How It Works</h4>
+      <div class="row justify-content-center g-4">
+        <div class="col-md-3">
+          <div class="step-card">
+            <div class="step-circle">1</div>
+            <h6 class="fw-bold mt-3">Capture or Upload</h6>
+            <p class="text-muted">Upload an image showing your eyes, palm, or nails using your camera or device.</p>
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <div class="step-card">
+            <div class="step-circle">2</div>
+            <h6 class="fw-bold mt-3">AI Detection</h6>
+            <p class="text-muted">NoVA-Scan uses YOLO AI to automatically locate and outline the key regions.</p>
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <div class="step-card">
+            <div class="step-circle">3</div>
+            <h6 class="fw-bold mt-3">Review Results</h6>
+            <p class="text-muted">View the detected areas and download the processed results for analysis.</p>
+          </div>
+        </div>
+      </div>
+    </section>
   </div>
 </body>
 </html>
