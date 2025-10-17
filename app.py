@@ -55,6 +55,8 @@ def upload(scan_type):
     # Convert local paths to URLs
     if "annotated_image" in output:
         output["annotated_image"] = "/" + output["annotated_image"].replace("\\", "/")
+    if "image" in output:
+        output["image"] = "/" + output["image"].replace("\\", "/")
     if "zip_file" in output:
         output["zip_file"] = "/" + output["zip_file"].replace("\\", "/")
     for key in ["saved_eyes", "saved_palms", "saved_nails"]:
