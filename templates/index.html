@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>NOVA Eye Detection</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="container">
+    <h1>NOVA Eye Detection</h1>
+    <form action="/" method="post" enctype="multipart/form-data">
+      <input type="file" name="image" accept="image/*" required>
+      <button type="submit">Run Detection</button>
+    </form>
+    <p class="note">Upload an image to detect and visualize eyes.</p>
+  </div>
+</body>
+</html>
