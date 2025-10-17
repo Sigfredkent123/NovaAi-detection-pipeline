@@ -1,47 +1,31 @@
-body {
-  background: #0e1117;
-  color: #fff;
-  font-family: Arial, sans-serif;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+body.bg-light-blue {
+  background-color: #e9f2ff;
 }
 
-.container {
-  text-align: center;
-  background: #1b1f24;
-  padding: 40px;
-  border-radius: 12px;
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
-}
-
-h1 {
-  margin-bottom: 20px;
-  color: #4fc3f7;
-}
-
-input[type="file"] {
-  margin-bottom: 15px;
-}
-
-button {
-  padding: 10px 20px;
-  background: #4fc3f7;
-  border: none;
-  border-radius: 6px;
-  color: #000;
-  font-weight: bold;
+.option-card {
+  border-radius: 20px;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+.option-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
-button:hover {
-  background: #03a9f4;
+.step-card {
+  background: white;
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
 }
 
-.note {
-  margin-top: 15px;
-  font-size: 14px;
-  color: #ccc;
+.step-circle {
+  width: 45px;
+  height: 45px;
+  background: #007bff;
+  color: white;
+  border-radius: 50%;
+  font-weight: bold;
+  line-height: 45px;
+  margin: 0 auto;
 }
