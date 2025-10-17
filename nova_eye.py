@@ -14,8 +14,9 @@ def main():
         return
 
     image_path = sys.argv[1]
-    output_dir = sys.argv[2] if len(sys.argv) > 2 else "output/eye"
+    output_dir = os.path.join("static", "output", "eye")
     os.makedirs(output_dir, exist_ok=True)
+    annotated_path = os.path.join(output_dir, f"annotated_{os.path.basename(image_path)}")
 
     if not os.path.exists(image_path):
         print(json.dumps({"error": f"File not found: {image_path}"}))
