@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Capture Image</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="camera-screen">
+  <div class="container">
+    <h2>Upload an Image for {{ parameter|capitalize }} Detection</h2>
+    <form action="{{ url_for('results', parameter=parameter) }}" method="post" enctype="multipart/form-data">
+      <input type="file" name="image" accept="image/*" required>
+      <button class="primary-btn" type="submit">Upload</button>
+    </form>
+    <a href="{{ url_for('selection') }}" class="back-btn">← Back</a>
+  </div>
+</body>
+</html>
