@@ -1,118 +1,53 @@
-from flask import Flask, render_template, request, redirect, url_for
-import os, subprocess, json, tempfile, shutil
+from flask import Flask, render_template, request, redirect, url_for, send_file, jsonify
+import subprocess, json, os, tempfile
 
 app = Flask(__name__)
-
-# --- Configuration ---
 UPLOAD_FOLDER = "uploads"
-OUTPUT_FOLDER = "static/output"
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
-os.makedirs(OUTPUT_FOLDER, exist_ok=True)
 
+@app.route('/')
+def index():
+    return render_template('index.html')
 
-# --- ROUTES ---
+@app.route('/camera/<scan_type>')
+def camera(scan_type):
+    return render_template('camera.html', scan_type=scan_type.capitalize())
 
-@app.route("/")
-def landing():
-    return render_template("landing.html")
+@app.route('/upload/<scan_type>', methods=['POST'])
+def upload(scan_type):
+    if 'image' not in request.files:
+        return "No image uploaded", 400
 
-
-@app.route("/selection")
-def selection():
-    return render_template("selection.html")
-
-
-@app.route("/camera")
-def camera():
-    parameter = request.args.get("param")
-    if not parameter:
-        return redirect(url_for("selection"))
-    return render_template("camera.html", parameter=parameter)
-
-
-@app.route("/results/<parameter>", methods=["POST"])
-def results(parameter):
-    # Ensure image was uploaded
-    if "image" not in request.files:
-        return render_template("results.html", error="No image uploaded.")
-    
-    image_file = request.files["image"]
-    if image_file.filename == "":
-        return render_template("results.html", error="No image selected.")
+    file = request.files['image']
+    if file.filename == '':
+        return "No file selected", 400
 
     # Save uploaded image
-    image_path = os.path.join(UPLOAD_FOLDER, image_file.filename)
-    image_file.save(image_path)
+    filepath = os.path.join(UPLOAD_FOLDER, file.filename)
+    file.save(filepath)
 
-    # Temporary output dir
-    temp_output = tempfile.mkdtemp(dir=OUTPUT_FOLDER)
+    # Run the correct detection script
+    if scan_type == "eye":
+        cmd = ["python3", "nova_eye.py", filepath]
+    elif scan_type == "palm":
+        cmd = ["python3", "finalpalm.py", filepath]
+    elif scan_type == "nail":
+        cmd = ["python3", "nova_nail.py", filepath]
+    else:
+        return "Invalid scan type", 400
 
-    # Map parameter to script
-    script_map = {
-        "eye": "nova_eye.py",
-        "palm": "finalpalm.py",
-        "nailbed": "nova_nail.py"
-    }
-
-    script = script_map.get(parameter)
-    if not script or not os.path.exists(script):
-        return render_template("results.html", error=f"Invalid parameter: {parameter}")
-
-    # --- Run detection script ---
+    # Execute the script
     try:
-        result = subprocess.run(
-            ["python3", script, image_path, temp_output],
-            capture_output=True,
-            text=True,
-            timeout=120
-        )
-        output_text = result.stdout.strip()
-        print("=== SCRIPT OUTPUT ===")
-        print(output_text)
-        print("=====================")
-
-        try:
-            data = json.loads(output_text)
-        except json.JSONDecodeError:
-            data = {"error": f"Script returned invalid output: {output_text[:200]}"}
-
+        result = subprocess.run(cmd, capture_output=True, text=True, check=True)
+        output = json.loads(result.stdout)
     except Exception as e:
-        data = {"error": str(e)}
+        return jsonify({"error": str(e), "details": result.stderr if 'result' in locals() else None}), 500
 
-    # --- Prepare display values ---
-    annotated_image = None
-    zip_file = None
-    num_detections = None
+    return render_template('results.html', result=output, scan_type=scan_type.capitalize())
 
-    if "error" in data:
-        return render_template("results.html", error=data["error"])
-
-    # Copy files to static for display
-    if "annotated_image" in data and os.path.exists(data["annotated_image"]):
-        dest_path = os.path.join("output", os.path.basename(data["annotated_image"]))
-        shutil.copy(data["annotated_image"], os.path.join("static", dest_path))
-        annotated_image = dest_path
-
-    if "zip_file" in data and os.path.exists(data["zip_file"]):
-        dest_zip = os.path.join("output", os.path.basename(data["zip_file"]))
-        shutil.copy(data["zip_file"], os.path.join("static", dest_zip))
-        zip_file = dest_zip
-
-    num_detections = (
-        data.get("num_eyes") or 
-        data.get("num_palms") or 
-        data.get("num_nails") or 
-        0
-    )
-
-    return render_template(
-        "results.html",
-        annotated_image=annotated_image,
-        zip_file=zip_file,
-        num_eyes=num_detections,
-        parameter=parameter
-    )
-
+@app.route('/download/<path:filename>')
+def download(filename):
+    return send_file(filename, as_attachment=True)
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
+    app.run(host="0.0.0.0", port=8080)
