@@ -13,9 +13,17 @@
       <p class="error">Error: {{ result.error }}</p>
     {% else %}
       <img src="{{ result.annotated_image }}" alt="Annotated Result" class="result-image">
-      <p><strong>Detected {{ scan_type.lower() }}s:</strong> {{ result.num_eyes or result.num_palms or result.num_nails }}</p>
 
-      <a href="/download/{{ result.zip_file }}" class="download-btn">Download Crops (ZIP)</a>
+      {% if scan_type == 'Eye' %}
+        <p><strong>Detected Eyes:</strong> {{ result.num_eyes }}</p>
+        <a href="{{ result.zip_file }}" class="download-btn">Download Eye Crops (ZIP)</a>
+      {% elif scan_type == 'Palm' %}
+        <p><strong>Detected Palms:</strong> {{ result.num_palms }}</p>
+        <a href="{{ result.zip_file }}" class="download-btn">Download Palm Crops (ZIP)</a>
+      {% elif scan_type == 'Nail' %}
+        <p><strong>Detected Nails:</strong> {{ result.num_nails }}</p>
+        <a href="{{ result.zip_file }}" class="download-btn">Download Nail Crops (ZIP)</a>
+      {% endif %}
     {% endif %}
 
     <a href="/" class="back-link">← Back to Home</a>
