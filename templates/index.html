@@ -14,20 +14,20 @@
     </p>
 
     <div class="card-container">
-      <div class="card" onclick="location.href='/camera/eye'">
-        <img src="{{ url_for('static', filename='images/eye.jpg') }}" alt="Eye">
+      <div class="card" onclick="location.href='{{ url_for('camera', scan_type='eye') }}'">
+        <img src="{{ url_for('static', filename='images/eye.png') }}" alt="Eye">
         <h2>Eyes</h2>
         <p>Let NoVA-Scan detect your eye region automatically for a clear and accurate image.</p>
       </div>
 
-      <div class="card" onclick="location.href='/camera/palm'">
-        <img src="{{ url_for('static', filename='images/palm.jpg') }}" alt="Palm">
+      <div class="card" onclick="location.href='{{ url_for('camera', scan_type='palm') }}'">
+        <img src="{{ url_for('static', filename='images/palm.png') }}" alt="Palm">
         <h2>Palm</h2>
         <p>Your palm area is identified instantly, helping the AI prepare it for detailed analysis.</p>
       </div>
 
-      <div class="card" onclick="location.href='/camera/nail'">
-        <img src="{{ url_for('static', filename='images/nail.jpg') }}" alt="Nail">
+      <div class="card" onclick="location.href='{{ url_for('camera', scan_type='nail') }}'">
+        <img src="{{ url_for('static', filename='images/nail.png') }}" alt="Nail">
         <h2>Nail Beds</h2>
         <p>NoVA-Scan pinpoints your nail area so the system can focus on the right details.</p>
       </div>
