@@ -1,31 +1,143 @@
-body.bg-light-blue {
-  background-color: #e9f2ff;
+body {
+  background-color: #eaf1ff;
+  font-family: 'Segoe UI', sans-serif;
+  color: #222;
+  margin: 0;
+  padding: 0;
 }
 
-.option-card {
-  border-radius: 20px;
-  cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.3s ease;
-}
-.option-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-}
-
-.step-card {
-  background: white;
-  border-radius: 15px;
-  padding: 20px;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
-}
-
-.step-circle {
-  width: 45px;
-  height: 45px;
-  background: #007bff;
-  color: white;
-  border-radius: 50%;
-  font-weight: bold;
-  line-height: 45px;
+.container {
+  text-align: center;
+  max-width: 1000px;
   margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.title {
+  color: #0033cc;
+  font-size: 2em;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  color: #444;
+  margin-bottom: 40px;
+  font-size: 1.1em;
+}
+
+.card-container {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  flex-wrap: wrap;
+  margin-bottom: 60px;
+}
+
+.card {
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  width: 250px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+}
+
+.card img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+.card h2 {
+  color: #0033cc;
+  margin-bottom: 10px;
+}
+
+.how-it-works h2 {
+  color: #0033cc;
+  margin-bottom: 25px;
+}
+
+.steps {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 25px;
+}
+
+.step {
+  width: 250px;
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.circle {
+  width: 40px;
+  height: 40px;
+  background-color: #0033cc;
+  color: #fff;
+  font-weight: bold;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.upload-form {
+  margin: 30px auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.upload-form input {
+  padding: 10px;
+  font-size: 1em;
+}
+
+.upload-form button {
+  background-color: #0033cc;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.upload-form button:hover {
+  background-color: #002699;
+}
+
+.result-image {
+  width: 400px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  margin-bottom: 20px;
+}
+
+.download-btn {
+  background-color: #0033cc;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  text-decoration: none;
+}
+
+.back-link {
+  display: block;
+  margin-top: 20px;
+  color: #0033cc;
+  text-decoration: none;
 }
