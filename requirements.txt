@@ -1,0 +1,4 @@
+Flask==3.0.3
+inference-sdk==0.58.1
+roboflow==1.2.11
+Pillow>=11.0.0,<12.0
