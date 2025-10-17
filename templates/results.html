@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ scan_type }} Results</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <div class="container">
+    <h1>{{ scan_type }} Detection Results</h1>
+
+    {% if result.error %}
+      <p class="error">Error: {{ result.error }}</p>
+    {% else %}
+      <img src="{{ result.annotated_image }}" alt="Annotated Result" class="result-image">
+      <p><strong>Detected {{ scan_type.lower() }}s:</strong> {{ result.num_eyes or result.num_palms or result.num_nails }}</p>
+
+      <a href="/download/{{ result.zip_file }}" class="download-btn">Download Crops (ZIP)</a>
+    {% endif %}
+
+    <a href="/" class="back-link">← Back to Home</a>
+  </div>
+</body>
+</html>
