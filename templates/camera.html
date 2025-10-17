@@ -2,17 +2,20 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Capture Image</title>
+  <title>{{ scan_type }} Scan</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
-<body class="camera-screen">
+<body>
   <div class="container">
-    <h2>Upload an Image for {{ parameter|capitalize }} Detection</h2>
-    <form action="{{ url_for('results', parameter=parameter) }}" method="post" enctype="multipart/form-data">
+    <h1>{{ scan_type }} Detection</h1>
+    <p>Upload or capture an image for {{ scan_type.lower() }} detection.</p>
+
+    <form action="/upload/{{ scan_type.lower() }}" method="POST" enctype="multipart/form-data" class="upload-form">
       <input type="file" name="image" accept="image/*" required>
-      <button class="primary-btn" type="submit">Upload</button>
+      <button type="submit">Upload & Analyze</button>
     </form>
-    <a href="{{ url_for('selection') }}" class="back-btn">← Back</a>
+
+    <a href="/" class="back-link">← Back to Home</a>
   </div>
 </body>
 </html>
