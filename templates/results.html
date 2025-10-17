@@ -4,6 +4,46 @@
   <meta charset="UTF-8">
   <title>{{ scan_type }} Results</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <style>
+    .image-comparison {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      margin: 20px 0;
+    }
+    .image-box {
+      text-align: center;
+      margin: 10px;
+    }
+    .image-box img {
+      max-width: 300px;
+      max-height: 300px;
+      border: 2px solid #ccc;
+      border-radius: 10px;
+    }
+    .download-btn {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #007BFF;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: background-color 0.2s;
+    }
+    .download-btn:hover {
+      background-color: #0056b3;
+    }
+    .back-link {
+      display: block;
+      margin-top: 20px;
+      text-decoration: none;
+      color: #333;
+    }
+    .back-link:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
 <body>
   <div class="container">
@@ -12,21 +52,24 @@
     {% if result.error %}
       <p class="error">Error: {{ result.error }}</p>
     {% else %}
-      <img src="{{ result.annotated_image }}" alt="Annotated Result" class="result-image">
+      <div class="image-comparison">
+        <div class="image-box">
+          <h3>Original Image</h3>
+          <img src="{{ result.image }}" alt="Original Image">
+        </div>
+        <div class="image-box">
+          <h3>Annotated Image</h3>
+          <img src="{{ result.annotated_image }}" alt="Annotated Image">
+        </div>
+      </div>
 
-      {% if scan_type == 'Eye' %}
-        <p><strong>Detected Eyes:</strong> {{ result.num_eyes }}</p>
-        <a href="{{ result.zip_file }}" class="download-btn">Download Eye Crops (ZIP)</a>
-      {% elif scan_type == 'Palm' %}
-        <p><strong>Detected Palms:</strong> {{ result.num_palms }}</p>
-        <a href="{{ result.zip_file }}" class="download-btn">Download Palm Crops (ZIP)</a>
-      {% elif scan_type == 'Nail' %}
-        <p><strong>Detected Nails:</strong> {{ result.num_nails }}</p>
-        <a href="{{ result.zip_file }}" class="download-btn">Download Nail Crops (ZIP)</a>
-      {% endif %}
+      <p><strong>Detected {{ scan_type.lower() }}s:</strong> 
+        {{ result.num_eyes or result.num_palms or result.num_nails }}</p>
+
+      <a href="{{ result.zip_file }}" class="download-btn">Download Crops (ZIP)</a>
     {% endif %}
 
-    <a href="/" class="back-link">← Back to Home</a>
+    <a href="{{ url_for('index') }}" class="back-link">← Back to Home</a>
   </div>
 </body>
 </html>
