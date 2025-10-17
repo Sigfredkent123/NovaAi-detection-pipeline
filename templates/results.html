@@ -5,23 +5,24 @@
   <title>{{ scan_type }} Results</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
   <style>
-    .image-comparison {
+    /* All styles scoped under .results-page */
+    .results-page .image-comparison {
       display: flex;
       justify-content: space-around;
       flex-wrap: wrap;
       margin: 20px 0;
     }
-    .image-box {
+    .results-page .image-box {
       text-align: center;
       margin: 10px;
     }
-    .image-box img {
+    .results-page .image-box img {
       max-width: 300px;
       max-height: 300px;
       border: 2px solid #ccc;
       border-radius: 10px;
     }
-    .download-btn {
+    .results-page .download-btn {
       display: inline-block;
       margin-top: 20px;
       padding: 10px 20px;
@@ -31,21 +32,21 @@
       border-radius: 5px;
       transition: background-color 0.2s;
     }
-    .download-btn:hover {
+    .results-page .download-btn:hover {
       background-color: #0056b3;
     }
-    .back-link {
+    .results-page .back-link {
       display: block;
       margin-top: 20px;
       text-decoration: none;
       color: #333;
     }
-    .back-link:hover {
+    .results-page .back-link:hover {
       text-decoration: underline;
     }
   </style>
 </head>
-<body>
+<body class="results-page">
   <div class="container">
     <h1>{{ scan_type }} Detection Results</h1>
 
